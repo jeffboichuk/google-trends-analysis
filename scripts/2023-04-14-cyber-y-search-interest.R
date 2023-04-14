@@ -56,3 +56,9 @@ ggsave(
   units    = "px", 
   dpi      = 300
 )
+
+search_interest |> 
+  filter(week >= as_date("2021-01-01")) |> 
+  group_by(keyword) |> 
+  summarize(hits = mean(hits)) |> 
+  mutate(cyber_to_y_ratio = hits / lead(hits))
